@@ -4,6 +4,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Sholihul Fadjri Triwibowo",
   description: "Personal portfolio website of Sholihul Fadjri Triwibowo",
+  icons: {
+    icon: '/images/me.jpg',
+    shortcut: '/images/me.jpg',
+    apple: '/images/me.jpg',
+  },
 };
 
 export default function RootLayout({

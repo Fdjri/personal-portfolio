@@ -51,25 +51,40 @@ export default function OrbitSystem() {
             const totalIcons = orbitalIcons.length; 
             
             const duration = 50; 
-            // Offset negatif untuk spacing posisi di orbit (nilai negatif = sudah berada di posisi tertentu di orbit)
+            // Offset negatif untuk spacing posisi di orbit
             const orbitOffset = (duration / totalIcons) * index * -1; 
-            const pulseDelay = Math.random() * 4;
-
-            // Kemunculan 1 per 1 dalam 0.5 detik total
+            
+            // Kemunculan 1 per 1 dalam 0.5 detik total (cepat dan smooth)
             const entranceDelay = (index / totalIcons) * 0.5;
             const entranceDuration = 0.3;
+            
+            // Orbit dimulai saat icon muncul + offset untuk spacing posisi
+            const orbitStartTime = entranceDelay + orbitOffset;
+            
+            // Pulse delay dihitung dari index untuk konsistensi
+            const pulseDelay = (index * 0.2) % 4;
 
             return (
             <motion.g 
                 key={key} 
-                initial={{ opacity: 0 }} 
-                animate={{ opacity: 1 }} 
+                initial={{ opacity: 0, scale: 0.5 }} 
+                animate={{ opacity: 1, scale: 1 }} 
                 transition={{ 
                     delay: entranceDelay, 
                     duration: entranceDuration,
-                    ease: "easeIn"
+                    ease: "easeOut"
                 }}
             >
+                {/* Orbit dimulai saat icon selesai fade in */}
+                <animateMotion 
+                  dur={`${duration}s`} 
+                  repeatCount="indefinite" 
+                  rotate="auto" 
+                  begin={`${orbitStartTime}s`}
+                >
+                   <mpath href="#orbitPath" />
+                </animateMotion>
+                
                 <foreignObject x="-40" y="-40" width="80" height="80">
                   <div className="flex items-center justify-center w-full h-full relative">
                      
@@ -80,10 +95,10 @@ export default function OrbitSystem() {
                            opacity: [0.4, 0.8, 0.4],
                         }}
                         transition={{
-                           duration: 2 + Math.random(), 
+                           duration: 2.5, 
                            repeat: Infinity,
                            ease: "easeInOut",
-                           delay: pulseDelay + entranceDelay 
+                           delay: pulseDelay + entranceDelay
                         }}
                         className="absolute inset-0"
                         style={{ 
@@ -104,17 +119,6 @@ export default function OrbitSystem() {
                      </div>
                   </div>
                 </foreignObject>
-                
-                {/* Animasi orbit sudah berjalan dari awal dengan offset negatif untuk spacing */}
-                {/* Fade in dari Framer Motion akan membuat icon terlihat 1 per 1 saat sudah mengorbit */}
-                <animateMotion 
-                  dur={`${duration}s`} 
-                  repeatCount="indefinite" 
-                  rotate="auto" 
-                  begin={`${orbitOffset}s`}
-                >
-                   <mpath href="#orbitPath" />
-                </animateMotion>
             </motion.g>
             );
         })}
