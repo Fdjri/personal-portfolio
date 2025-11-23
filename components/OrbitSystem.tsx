@@ -51,13 +51,13 @@ export default function OrbitSystem() {
             const totalIcons = orbitalIcons.length; 
             
             const duration = 50; 
-            const orbitDelay = (duration / totalIcons) * index * -1; 
+            // Offset negatif untuk spacing posisi di orbit (nilai negatif = sudah berada di posisi tertentu di orbit)
+            const orbitOffset = (duration / totalIcons) * index * -1; 
             const pulseDelay = Math.random() * 4;
 
-            // UPDATE 3: TOTAL ENTRANCE CUMA 0.5 DETIK
-            // Icon terakhir bakal muncul di detik ke-0.5. Cepet banget.
-            // Gak perlu nunggu scramble text (yg biasanya delay 0.5s++) selesai.
+            // Kemunculan 1 per 1 dalam 0.5 detik total
             const entranceDelay = (index / totalIcons) * 0.5;
+            const entranceDuration = 0.3;
 
             return (
             <motion.g 
@@ -66,7 +66,7 @@ export default function OrbitSystem() {
                 animate={{ opacity: 1 }} 
                 transition={{ 
                     delay: entranceDelay, 
-                    duration: 0.2, // Fade in per icon super cepet
+                    duration: entranceDuration,
                     ease: "easeIn"
                 }}
             >
@@ -105,7 +105,14 @@ export default function OrbitSystem() {
                   </div>
                 </foreignObject>
                 
-                <animateMotion dur={`${duration}s`} repeatCount="indefinite" rotate="auto" begin={`${orbitDelay}s`}>
+                {/* Animasi orbit sudah berjalan dari awal dengan offset negatif untuk spacing */}
+                {/* Fade in dari Framer Motion akan membuat icon terlihat 1 per 1 saat sudah mengorbit */}
+                <animateMotion 
+                  dur={`${duration}s`} 
+                  repeatCount="indefinite" 
+                  rotate="auto" 
+                  begin={`${orbitOffset}s`}
+                >
                    <mpath href="#orbitPath" />
                 </animateMotion>
             </motion.g>

@@ -625,22 +625,43 @@ export default function ContactPage() {
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/20 to-purple-950/30" />
                   
                   {/* Animated stars */}
-                  {[...Array(20)].map((_, i) => (
+                  {[
+                    { left: 15, top: 20, duration: 2.5, delay: 0.3 },
+                    { left: 85, top: 15, duration: 3.2, delay: 1.1 },
+                    { left: 45, top: 8, duration: 2.8, delay: 0.7 },
+                    { left: 72, top: 35, duration: 3.5, delay: 1.5 },
+                    { left: 28, top: 65, duration: 2.2, delay: 0.5 },
+                    { left: 92, top: 75, duration: 3.8, delay: 1.8 },
+                    { left: 10, top: 82, duration: 2.9, delay: 0.9 },
+                    { left: 58, top: 45, duration: 3.1, delay: 1.3 },
+                    { left: 38, top: 88, duration: 2.6, delay: 0.4 },
+                    { left: 78, top: 52, duration: 3.4, delay: 1.7 },
+                    { left: 5, top: 48, duration: 2.4, delay: 0.6 },
+                    { left: 65, top: 18, duration: 3.3, delay: 1.2 },
+                    { left: 48, top: 72, duration: 2.7, delay: 0.8 },
+                    { left: 82, top: 92, duration: 3.6, delay: 1.9 },
+                    { left: 22, top: 38, duration: 2.3, delay: 0.2 },
+                    { left: 95, top: 42, duration: 3.7, delay: 1.6 },
+                    { left: 52, top: 58, duration: 2.9, delay: 1.0 },
+                    { left: 12, top: 12, duration: 3.0, delay: 0.1 },
+                    { left: 68, top: 78, duration: 2.5, delay: 1.4 },
+                    { left: 35, top: 28, duration: 3.2, delay: 0.5 },
+                  ].map((star, i) => (
                     <motion.div
                       key={i}
                       className="absolute w-1 h-1 bg-white rounded-full"
                       style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
+                        left: `${star.left}%`,
+                        top: `${star.top}%`,
                       }}
                       animate={{
                         opacity: [0.2, 1, 0.2],
                         scale: [1, 1.5, 1],
                       }}
                       transition={{
-                        duration: 2 + Math.random() * 2,
+                        duration: star.duration,
                         repeat: Infinity,
-                        delay: Math.random() * 2,
+                        delay: star.delay,
                       }}
                     />
                   ))}
@@ -834,9 +855,10 @@ export default function ContactPage() {
 
                 {/* Pinned Comment Card */}
                 <div className="p-5 rounded-xl bg-gradient-to-br from-blue-950/40 to-blue-900/20 border-2 border-blue-500/30 backdrop-blur-sm">
-                  <div className="flex items-start gap-4">
+                  {/* Header: Avatar + Name */}
+                  <div className="flex items-center gap-3 mb-3">
                     {/* Profile Image */}
-                    <div className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0 border-2 border-blue-400 shadow-lg shadow-blue-500/20">
+                    <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border-2 border-blue-400 shadow-lg shadow-blue-500/20">
                       <Image
                         src="/images/me.jpg"
                         alt="Fadjri"
@@ -846,27 +868,31 @@ export default function ContactPage() {
                       />
                     </div>
 
-                    {/* Comment Content */}
+                    {/* Name + Badge */}
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2 flex-wrap">
+                      <div className="flex items-center gap-2 flex-wrap">
                         <span className="font-bold text-white text-base">Fadjri</span>
-                        <span className="px-3 py-1 bg-slate-200 text-slate-900 text-xs font-semibold rounded-full">
+                        <span className="px-2 py-0.5 bg-slate-200 text-slate-900 text-xs font-semibold rounded-full">
                           Author
                         </span>
                       </div>
-                      <p className="text-slate-200 text-sm leading-relaxed">
-                        Thanks for visiting! Feel free to DM me on{" "}
-                        <a 
-                          href="https://www.instagram.com/fdjritw/" 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-blue-400 hover:text-blue-300 underline decoration-blue-400/50 hover:decoration-blue-300 transition-colors font-medium"
-                        >
-                          Instagram
-                        </a>
-                        {" "}if you need anything ASAP.
-                      </p>
                     </div>
+                  </div>
+
+                  {/* Comment Message */}
+                  <div className="mt-2">
+                    <p className="text-slate-200 text-sm leading-relaxed">
+                      Thanks for visiting! Feel free to DM me on{" "}
+                      <a 
+                        href="https://www.instagram.com/fdjritw/" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-blue-400 hover:text-blue-300 underline decoration-blue-400/50 hover:decoration-blue-300 transition-colors font-medium"
+                      >
+                        Instagram
+                      </a>
+                      {" "}if you need anything ASAP.
+                    </p>
                   </div>
                 </div>
               </motion.div>
@@ -891,33 +917,45 @@ export default function ContactPage() {
                       key={comment.id}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className={`p-4 rounded-lg flex items-start gap-3 ${
+                      className={`p-5 rounded-xl ${
                         comment.isAuthor 
-                          ? 'bg-blue-900/30 border border-blue-700/50' 
+                          ? 'bg-[#2d3748]' 
                           : 'bg-[#1e293b]'
                       }`}
                     >
-                      {/* Avatar */}
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold text-sm">
-                          {comment.name.charAt(0).toUpperCase()}
-                        </span>
-                      </div>
+                      {/* Header: Avatar + Name */}
+                      <div className="flex items-center gap-3 mb-3">
+                        {/* Avatar with initial */}
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center flex-shrink-0 shadow-md">
+                          <span className="text-white font-bold text-base">
+                            {comment.name.charAt(0).toUpperCase()}
+                          </span>
+                        </div>
 
-                      {/* Comment Content */}
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1 flex-wrap">
-                          <span className="font-semibold text-sm">{comment.name}</span>
-                          {comment.isAuthor && (
-                            <span className="px-2 py-0.5 bg-slate-700 text-xs rounded-full">
-                              Author
+                        {/* Name + Badge */}
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="font-bold text-white text-base">
+                              {comment.name}
                             </span>
-                          )}
+                            {comment.isAuthor && (
+                              <span className="px-2 py-0.5 bg-slate-200 text-slate-900 text-xs font-semibold rounded-full">
+                                Author
+                              </span>
+                            )}
+                          </div>
+                          {/* Timestamp */}
                           <span className="text-xs text-slate-500">
                             {formatTimestamp(comment.timestamp)}
                           </span>
                         </div>
-                        <p className="text-slate-300 text-sm break-words">{comment.message}</p>
+                      </div>
+
+                      {/* Comment Message */}
+                      <div className="mt-2">
+                        <p className="text-slate-200 text-sm leading-relaxed break-words">
+                          {comment.message}
+                        </p>
                       </div>
                     </motion.div>
                   ))

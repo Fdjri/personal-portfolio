@@ -14,7 +14,10 @@ import {
   LuLayers,
   LuStar,
   LuDatabase, 
-  LuCloud 
+  LuCloud,
+  LuChevronLeft,
+  LuChevronRight,
+  LuX
 } from "react-icons/lu";
 import { FaJava } from "react-icons/fa"; 
 import { VscVscode } from "react-icons/vsc"; 
@@ -65,6 +68,9 @@ export const Icons = {
   Star: (props: any) => <LuStar {...props} />,
   Database: (props: any) => <LuDatabase {...props} />,
   Cloud: (props: any) => <LuCloud {...props} />,
+  ChevronLeft: (props: any) => <LuChevronLeft {...props} />,
+  ChevronRight: (props: any) => <LuChevronRight {...props} />,
+  X: (props: any) => <LuX {...props} />,
   
   Alpine: ({ size = 24, color = "currentColor", className = "" }) => (
     <svg 

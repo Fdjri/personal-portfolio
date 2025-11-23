@@ -1,15 +1,14 @@
-// Tipe Data Project Lengkap
 export type Project = {
-  id: string; // Slug URL (misal: "kaizen-db-engine")
+  id: string; 
   category: "web" | "mobile" | "uiux";
   title: string;
-  subtitle: string; // Tambahan: Sub-judul kayak di gambar ("Customer Follow Up...")
+  subtitle: string; 
   description: string;
-  overview: string; // Deskripsi panjang buat halaman detail
-  keyFeatures: string[]; // List fitur utama
+  overview: string; 
+  keyFeatures: string[]; 
   techStack: string[];
-  image: string; // Thumbnail utama
-  screenshots: string[]; // Galeri screenshot tambahan
+  image: string; 
+  screenshots: string[]; 
   links: {
     demo?: string;
     code?: string;
@@ -19,28 +18,6 @@ export type Project = {
 
 export const allProjects: Project[] = [
   // --- WEB PROJECTS ---
-  {
-    id: "kaizen-db-engine",
-    category: "web",
-    title: "Kaizen DB Engine",
-    subtitle: "Customer Follow Up Tracking Website",
-    description: "A comprehensive dashboard for tracking customer follow-ups and sales performance.",
-    overview: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    keyFeatures: [
-      "Real-time Dashboard Analytics",
-      "Customer Relationship Management (CRM)",
-      "Automated Follow-up Reminders",
-      "Role-based Access Control (RBAC)"
-    ],
-    techStack: ["Laravel", "JavaScript", "TailwindCSS", "MySQL"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop",
-    screenshots: [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1555421689-49263376da39?q=80&w=1000&auto=format&fit=crop"
-    ],
-    links: { demo: "#", code: "#" }
-  },
   {
     id: "academix",
     category: "web",
@@ -54,13 +31,15 @@ export const allProjects: Project[] = [
       "Online Quiz & Assessment",
       "Discussion Forums"
     ],
-    techStack: ["React", "Next.js", "Tailwind", "MySQL"],
-    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1000&auto=format&fit=crop",
+    techStack: ["Java", "MySQL"],
+    image: "/images/projects/academix/mockup.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000&auto=format&fit=crop"
+      "/images/projects/academix/landing.jpg",
+      "/images/projects/academix/dashboard.jpg",
+      "/images/projects/academix/login.jpg",
+      "/images/projects/academix/addkrs.jpg"
     ],
-    links: { demo: "#", code: "#" }
+    links: { demo: "https://www.youtube.com/watch?v=L_73bXFKUHI", code: "https://github.com/Fdjri/Academix" }
   },
   {
     id: "cuyperpus",
@@ -75,13 +54,15 @@ export const allProjects: Project[] = [
       "Member Management",
       "Digital Catalog Search"
     ],
-    techStack: ["PHP", "Laravel", "Bootstrap", "MySQL"],
-    image: "https://images.unsplash.com/photo-1481487484168-9b9301cd2766?q=80&w=1000&auto=format&fit=crop",
+    techStack: ["PHP", "Bootstrap", "MySQL"],
+    image: "/images/projects/cuyperpus/mockup.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1507842217121-9e9f147d719d?q=80&w=1000&auto=format&fit=crop"
+      "/images/projects/cuyperpus/landing.jpg",
+      "/images/projects/cuyperpus/dashboarduser.jpg",
+      "/images/projects/cuyperpus/dashboardadmin.jpg",
+      "/images/projects/cuyperpus/addbuku.jpg"
     ],
-    links: { demo: "#", code: "#" }
+    links: { demo: "https://youtu.be/vDrakewu3nM?si=CYbBWqUDAW_x9tmt", code: "https://github.com/Fdjri/web_perpus" }
   },
   {
     id: "sepatuku",
@@ -97,35 +78,148 @@ export const allProjects: Project[] = [
       "User Reviews & Ratings"
     ],
     techStack: ["Laravel", "Tailwind", "MySQL"],
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1000&auto=format&fit=crop",
+    image: "/images/projects/sepatuku/mockup.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=1000&auto=format&fit=crop"
+      "/images/projects/sepatuku/landing.jpg",
+      "/images/projects/sepatuku/dashboard.jpg"
     ],
-    links: { demo: "#", code: "#" }
+    links: { demo: "#", code: "https://github.com/Fdjri/web_sepatuku" }
+  },
+  {
+    id: "tixgo",
+    category: "web",
+    title: "TixGO!",
+    subtitle: "Cinema Ticketing Website",
+    description: "Web-based cinema, travel, and hotel ticket booking platform with real-time seat selection and secure payment integration.",
+    overview: "TixGO! brings the cinema experience online. Browse movies, pick your perfect seats in real-time, and book tickets hassle-free. Integrated with multiple cinema chains for up-to-date showtimes and availability.",
+    keyFeatures: [
+      "Real-time Seat Selection Map",
+      "Multiple Cinema Integration",
+      "Online Payment Gateway",
+      "Booking History & E-Tickets"
+    ],
+    techStack: ["Laravel", "Tailwind", "MySQL"],
+    image: "/images/projects/tixgoweb/mockup.jpg",
+    screenshots: [
+      "/images/projects/tixgoweb/dashboarduser.jpg",
+      "/images/projects/tixgoweb/booking.jpg",
+      "/images/projects/tixgoweb/dashboardadmin.jpg",
+      "/images/projects/tixgoweb/dashboardservice.jpg"
+    ],
+    links: { demo: "https://youtu.be/pWBpOghwUHA?si=KBnpHEyH_Qd3mxei", code: "https://github.com/Fdjri/UAS_Integrasi_Aplikasi" }
+  },
+  {
+    id: "parking-slot-monitoring",
+    category: "web",
+    title: "Parking Slot Monitoring",
+    subtitle: "IoT Smart Parking System",
+    description: "Smart parking management system using IoT sensors to monitor parking slot availability in real-time.",
+    overview: "Say goodbye to endless parking searches! This IoT-powered system detects available parking slots using ultrasonic sensors and displays real-time availability on a web dashboard. Perfect for managing parking lots efficiently.",
+    keyFeatures: [
+      "Real-time Slot Availability Detection",
+      "IoT Sensor Integration (ESP32)",
+      "Live Dashboard Monitoring",
+      "Automated Status Updates"
+    ],
+    techStack: ["Laravel", "C++", "Alpine.js", "Tailwind", "MySQL"],
+    image: "/images/projects/dashboardparking/mockup.jpg",
+    screenshots: [
+      "/images/projects/dashboardparking/parking.jpg"
+    ],
+    links: { demo: "#", code: "https://github.com/Fdjri/UAS_IoT_SmartParkingSystem" }
+  },
+  {
+    id: "personal-portfolio",
+    category: "web",
+    title: "Personal Portfolio",
+    subtitle: "Developer Portfolio Website",
+    description: "Modern and interactive portfolio website built with Next.js showcasing projects, skills, and professional journey.",
+    overview: "My personal space on the web! Built with the latest Next.js and React, this portfolio features smooth animations, dark mode, and a clean design. It's where I showcase my work and share my developer journey with the world.",
+    keyFeatures: [
+      "Responsive & Mobile-First Design",
+      "Smooth Page Transitions",
+      "Project Showcase Gallery",
+      "Contact Form Integration"
+    ],
+    techStack: ["Next.js", "React", "JavaScript", "TypeScript", "Tailwind"],
+    image: "/images/projects/sepatuku/mockup.jpg",
+    screenshots: [
+      "/images/projects/sepatuku/landing.jpg",
+      "/images/projects/sepatuku/dashboard.jpg"
+    ],
+    links: { demo: "#", code: "https://github.com/Fdjri/personal-portfolio" }
+  },
+  {
+    id: "kaizen-db-engine",
+    category: "web",
+    title: "Kaizen DB Engine",
+    subtitle: "Sales Follow-up Management System",
+    description: "Comprehensive CRM dashboard for sales teams to track customer interactions, follow-ups, and performance metrics.",
+    overview: "Kaizen DB Engine keeps your sales team organized and efficient. Track every customer interaction, set follow-up reminders, and analyze sales performance with detailed reports. Built for teams that want to improve continuously (kaizen = continuous improvement!).",
+    keyFeatures: [
+      "Real-time Sales Dashboard",
+      "Customer Interaction History",
+      "Automated Follow-up Reminders",
+      "Performance Analytics & Reports"
+    ],
+    techStack: ["Laravel", "JavaScript", "TailwindCSS", "MySQL"],
+    image: "/images/projects/kaizendbengine/mockup.jpg",
+    screenshots: [
+      "/images/projects/kaizendbengine/dashboardadmin.jpg",
+      "/images/projects/kaizendbengine/adminreport.jpg",
+      "/images/projects/kaizendbengine/login.jpg"
+    ],
+    links: { demo: "#", code: "https://github.com/Fdjri/web_project_salesman" }
+  },
+  {
+    id: "paud-insani",
+    category: "web",
+    title: "PAUD INSANI Management",
+    subtitle: "Preschool Management System",
+    description: "Complete management system for PAUD (Early Childhood Education) covering student data, attendance, payments, and administration.",
+    overview: "Making preschool management a breeze! This system helps teachers and admins manage student records, track attendance, handle tuition payments, and communicate with parents all in one place. Built with Livewire for a smooth, reactive experience.",
+    keyFeatures: [
+      "Student & Staff Management",
+      "Attendance Tracking System",
+      "Tuition Payment Processing",
+      "Parent Communication Portal"
+    ],
+    techStack: ["Laravel", "Livewire", "Alpine.js", "TailwindCSS", "MySQL"],
+    image: "/images/projects/paudinsani/mockup.jpg",
+    screenshots: [
+      "/images/projects/paudinsani/login.jpg",
+      "/images/projects/paudinsani/dashboardadmin.jpg",
+      "/images/projects/paudinsani/listsiswa.jpg",
+      "/images/projects/paudinsani/absensi.jpg",
+      "/images/projects/paudinsani/spp.jpg",
+      "/images/projects/paudinsani/keuangan.jpg",
+      "/images/projects/paudinsani/listuser.jpg"
+    ],
+    links: { demo: "#", code: "https://github.com/Fdjri/paud_insani" }
   },
 
   // --- MOBILE PROJECTS ---
   {
-    id: "tixgo",
+    id: "tixgo-mobile",
     category: "mobile",
-    title: "TixGO!",
-    subtitle: "Cinema Booking App",
-    description: "Cinema ticketing application. Users can browse movies, select seats, and book tickets in real-time.",
-    overview: "Experience movies like never before with TixGO!. Skip the lines and book your favorite seats instantly. Integrated with major cinema chains for real-time availability.",
+    title: "TixGO! Mobile",
+    subtitle: "Cinema Booking Mobile App",
+    description: "Mobile version of TixGO! - Book cinema, travel, and hotel tickets on the go with smooth mobile UI and offline ticket storage.",
+    overview: "Cinema tickets in your pocket! The mobile companion to TixGO! brings all the booking features to your smartphone. Browse showtimes, pick seats, and get your tickets as QR codes - all optimized for mobile use.",
     keyFeatures: [
-      "Real-time Seat Selection",
-      "QR Code Ticket Generation",
-      "Payment Integration",
-      "Movie Reviews & Trailers"
+      "Mobile-Optimized Seat Selection",
+      "QR Code E-Ticket Generation",
+      "Offline Ticket Access",
+      "Push Notifications for Showtimes"
     ],
-    techStack: ["Flutter", "Dart", "Firebase"],
-    image: "https://images.unsplash.com/photo-1517260739337-6799d239ce83?q=80&w=1000&auto=format&fit=crop",
+    techStack: ["Flutter", "Dart", "JSON"],
+    image: "/images/projects/tixgomobile/mockup.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1000&auto=format&fit=crop"
+      "/images/projects/tixgomobile/login.jpg",
+      "/images/projects/tixgomobile/category.jpg",
+      "/images/projects/tixgomobile/booking.jpg"
     ],
-    links: { demo: "#", code: "#" }
+    links: { demo: "https://youtu.be/pWBpOghwUHA?si=KBnpHEyH_Qd3mxei", code: "https://github.com/Fdjri/UAS_Integrasi_Aplikasi/tree/main/tixgo_mobile" }
   },
   {
     id: "my-simple-location",
@@ -140,12 +234,83 @@ export const allProjects: Project[] = [
       "Share via Social Media",
       "Offline Mode Support"
     ],
-    techStack: ["Flutter", "Google Maps API"],
-    image: "https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?q=80&w=1000&auto=format&fit=crop",
+    techStack: ["Flutter", "Dart", "Google Maps API"],
+    image: "/images/projects/mysimplelocation/mockup.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1000&auto=format&fit=crop"
+      "/images/projects/mysimplelocation/getlocation.jpg",
+      "/images/projects/mysimplelocation/history.jpg",
+      "/images/projects/mysimplelocation/detail.jpg"
     ],
-    links: { demo: "#", code: "#" }
+    links: { demo: "#", code: "https://github.com/Fdjri/MySimple-Location" }
+  },
+  {
+    id: "e-uji-emisi",
+    category: "mobile",
+    title: "E-Uji Emisi",
+    subtitle: "Vehicle Emission Test App",
+    description: "Mobile app for vehicle emission testing services. Book appointments, track test results, and get reminders.",
+    overview: "Keep your vehicle emissions in check! This app connects drivers with certified emission testing centers. Schedule tests, view results, and get notifications when your next test is due. Making eco-friendly driving easier to manage.",
+    keyFeatures: [
+      "Online Test Booking",
+      "Emission Test Results History",
+      "Testing Center Locator",
+      "Reminder Notifications"
+    ],
+    techStack: ["Flutter", "Dart"],
+    image: "/images/projects/eujiemisi/mockup.jpg",
+    screenshots: [
+      "/images/projects/eujiemisi/splash.jpg",
+      "/images/projects/eujiemisi/login.jpg",
+      "/images/projects/eujiemisi/home.jpg",
+      "/images/projects/eujiemisi/info.jpg"
+    ],
+    links: { demo: "#", code: "https://github.com/Fdjri/e-uji_emisi" }
+  },
+  {
+    id: "espj",
+    category: "mobile",
+    title: "eSPJ",
+    subtitle: "Financial Report Management",
+    description: "Digital solution for SPJ (Surat Perintah Jalan) - financial accountability report management for organizations.",
+    overview: "Digitizing financial reporting! eSPJ streamlines the process of creating, submitting, and tracking financial accountability reports. No more paper trails - everything's digital, organized, and easy to access.",
+    keyFeatures: [
+      "Digital Report Creation",
+      "Receipt Photo Upload",
+      "Submission Tracking",
+      "Report History Archive"
+    ],
+    techStack: ["Flutter", "Dart"],
+    image: "/images/projects/espj/mockup.jpg",
+    screenshots: [
+      "/images/projects/espj/splash.jpg",
+      "/images/projects/espj/login.jpg",
+      "/images/projects/espj/home.jpg"
+    ],
+    links: { demo: "#", code: "https://github.com/Fdjri/eSPJ-FCA" }
+  },
+  {
+    id: "bps-rw",
+    category: "mobile",
+    title: "BPS RW",
+    subtitle: "Neighborhood Waste Management System",
+    description: "Smart mobile app for managing waste collection and disposal at the neighborhood level, keeping communities clean and organized.",
+    overview: "Making neighborhoods cleaner, one tap at a time! BPS RW (Bidang Pengelola Sampah Rukun Warga) helps manage waste collection schedules, track pickups, and coordinate with local waste management teams. Perfect for keeping your neighborhood tidy and eco-friendly!",
+    keyFeatures: [
+      "Waste Collection Scheduling",
+      "Real-time Pickup Tracking",
+      "Resident Waste Reports",
+      "Collection History & Analytics"
+    ],
+    techStack: ["Flutter", "Dart"],
+    image: "/images/projects/bpsrw/mockup.jpg",
+    screenshots: [
+      "/images/projects/bpsrw/splash.jpg",
+      "/images/projects/bpsrw/login.jpg",
+      "/images/projects/bpsrw/data.jpg",
+      "/images/projects/bpsrw/input.jpg",
+      "/images/projects/bpsrw/laporan.jpg"
+    ],
+    links: { demo: "#", code: "https://github.com/Fdjri/BPS-RW" }
   },
 
   // --- UI/UX PROJECTS ---
@@ -162,12 +327,15 @@ export const allProjects: Project[] = [
       "Calorie Counter Visuals",
       "Progress Charts"
     ],
-    techStack: ["Figma", "Prototyping", "User Research"],
-    image: "https://images.unsplash.com/photo-1556742393-d75f468bfcb0?q=80&w=1000&auto=format&fit=crop",
+    techStack: ["Figma", "Prototyping", "UI/UX Design"],
+    image: "/images/projects/nutrimate/mockup.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1511690656952-34342d5c28b5?q=80&w=1000&auto=format&fit=crop"
+      "/images/projects/nutrimate/splash.jpg",
+      "/images/projects/nutrimate/login.jpg",
+      "/images/projects/nutrimate/home.jpg",
+      "/images/projects/nutrimate/tracker.jpg"
     ],
-    links: { prototype: "#" }
+    links: { prototype: "https://www.figma.com/proto/DxsHxy6qYXPV4hgXBqnK59/Nutri-Mate-App?page-id=0%3A1&node-id=4-379&p=f&viewport=50%2C466%2C0.36&t=Athh7oE6TrCkO0Lx-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=13%3A656&show-proto-sidebar=1" }
   },
   {
     id: "e-bank-sampah",
@@ -182,11 +350,37 @@ export const allProjects: Project[] = [
       "Educational Content Layout",
       "Community Leaderboard"
     ],
-    techStack: ["Figma", "UI Design"],
-    image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=1000&auto=format&fit=crop",
+    techStack: ["Figma", "Prototyping", "UI/UX Design"],
+    image: "/images/projects/banksampah/mockup.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=1000&auto=format&fit=crop"
+      "/images/projects/banksampah/splash.jpg",
+      "/images/projects/banksampah/dashboard1.jpg",
+      "/images/projects/banksampah/dashboard2.jpg",
+      "/images/projects/banksampah/nasabah.jpg",
+      "/images/projects/banksampah/riwayat.jpg"
     ],
-    links: { prototype: "#" }
+    links: { prototype: "https://www.figma.com/proto/ivZovTvnSAdkHN0oTUzIxf/Bank-Sampah?page-id=0%3A1&node-id=5-4329&p=f&viewport=481%2C52%2C0.05&t=cp0dwObvO0L487xo-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1%3A2" }
+  },
+  {
+    id: "silika",
+    category: "uiux",
+    title: "SILIKA",
+    subtitle: "Air Quality Monitoring App Design",
+    description: "UI/UX design for SILIKA - an air quality monitoring system that tracks pollution levels and provides health recommendations.",
+    overview: "Breathing cleaner air starts with awareness. SILIKA's design focuses on making complex air quality data easy to understand through intuitive visualizations and color-coded indicators. The interface guides users with actionable health tips based on current conditions.",
+    keyFeatures: [
+      "Real-time Air Quality Dashboard",
+      "Interactive Pollution Maps",
+      "Health Advisory Notifications",
+      "Historical Data Visualization"
+    ],
+    techStack: ["Figma", "Prototyping", "UI/UX Design"],
+    image: "/images/projects/silika/mockup.jpg",
+    screenshots: [
+      "/images/projects/silika/home.jpg",
+      "/images/projects/silika/pemantauan.jpg",
+      "/images/projects/silika/udara.jpg"
+    ],
+    links: { prototype: "https://www.figma.com/proto/DLnjbSVclNl1fPbxXqDKmo/SILIKA?page-id=&node-id=501-6608&viewport=-42%2C180%2C0.43&t=6M2FpGxHUducWRnW-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=501%3A6359" }
   }
 ];

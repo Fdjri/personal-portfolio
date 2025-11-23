@@ -122,7 +122,7 @@ export default function Projects() {
                     </div>
 
                     {/* ACTIONS */}
-                    <div className="flex gap-4 pt-2">
+                    <div className="flex flex-wrap gap-3 pt-2">
                       {/* Tombol DETAIL mengarah ke halaman detail slug */}
                       <Link href={`/projects/${project.id}`}>
                         <button className="px-6 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition-all flex items-center gap-2 shadow-lg shadow-blue-900/20 active:scale-95 group">
@@ -131,11 +131,22 @@ export default function Projects() {
                         </button>
                       </Link>
                       
+                      {project.links.prototype && (
+                        <a href={project.links.prototype} target="_blank" rel="noreferrer">
+                          <button className="px-6 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-medium transition-all flex items-center gap-2 shadow-lg shadow-purple-900/20 active:scale-95 group">
+                            <Icons.Layers size={18} className="group-hover:scale-110 transition-transform" />
+                            <ScrambleText text="Prototype" />
+                          </button>
+                        </a>
+                      )}
+                      
                       {project.links.code && (
-                        <button className="px-6 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-medium transition-all flex items-center gap-2 active:scale-95 group">
-                          <Icons.Code size={18} className="group-hover:scale-110 transition-transform" />
-                          <ScrambleText text="Source Code" />
-                        </button>
+                        <a href={project.links.code} target="_blank" rel="noreferrer">
+                          <button className="px-6 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-medium transition-all flex items-center gap-2 active:scale-95 group">
+                            <Icons.Code size={18} className="group-hover:scale-110 transition-transform" />
+                            <ScrambleText text="Source Code" />
+                          </button>
+                        </a>
                       )}
                     </div>
                   </div>

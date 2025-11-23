@@ -1,10 +1,60 @@
 "use client";
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { Icons } from "../ui/Icons";
 import { ScrambleText } from "../ui/Animations"; 
 
+interface Certificate {
+  title: string;
+  image: string;
+}
+
+const certificates: Certificate[] = [
+  {
+    title: "Mobile app development for beginners with Flutter framework",
+    image: "/images/certificates/flutter.jpg"
+  },
+  {
+    title: "Learn ethical hacking and cybersecurity specialist basics",
+    image: "/images/certificates/ethicalhacking.jpg"
+  },
+  {
+    title: "Student level cybersecurity certification",
+    image: "/images/certificates/cybersecurity.jpg"
+  },
+  {
+    title: "Azure AI fundamentals",
+    image: "/images/certificates/azure.jpg"
+  },
+  {
+    title: "Microsoft office desktop applications",
+    image: "/images/certificates/microsoft.jpg"
+  }
+];
+
 export default function About() {
+  const [selectedCertificate, setSelectedCertificate] = useState<Certificate | null>(null);
+
+  // Handle ESC key to close modal
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedCertificate(null);
+      }
+    };
+
+    if (selectedCertificate) {
+      window.addEventListener('keydown', handleEsc);
+      // Disable body scroll when modal is open
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedCertificate]);
   return (
     <section id="about" className="relative z-20 py-24 px-6 overflow-hidden">
       <div className="max-w-5xl mx-auto relative">
@@ -94,7 +144,7 @@ export default function About() {
                 <Icons.Rocket size={60} />
              </div>
              <h3 className="text-5xl font-bold text-white mb-2 relative z-10">
-                <ScrambleText text="15" delay={600} />
+                <ScrambleText text="15+" delay={600} />
              </h3>
              <p className="text-blue-200/60 font-medium text-sm tracking-wider uppercase relative z-10">
                 <ScrambleText text="Projects Completed" delay={800} />
@@ -144,22 +194,16 @@ export default function About() {
 
            {/* CONTAINER UTAMA (Box Gelap Besar) */}
            <div className="border border-[#1e293b] rounded-2xl bg-[#050914] overflow-hidden">
-              {[
-                "Mobile app development for beginners with Flutter framework",
-                "Learn ethical hacking and cybersecurity specialist basics",
-                "Student level cybersecurity certification",
-                "Azure AI fundamentals",
-                "Microsoft office desktop applications"
-              ].map((cert, idx, arr) => (
+              {certificates.map((cert, idx, arr) => (
                 <motion.div 
                   key={idx}
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 * idx }}
-                  // Class 'group' penting buat trigger hover per baris
+                  onClick={() => setSelectedCertificate(cert)}
                   className={`
-                    p-6 flex items-start gap-4 relative group cursor-default transition-colors hover:bg-[#0f172a]
+                    p-6 flex items-start gap-4 relative group cursor-pointer transition-colors hover:bg-[#0f172a]
                     ${idx !== arr.length - 1 ? 'border-b border-[#1e293b]' : ''} 
                   `}
                 >
@@ -174,14 +218,98 @@ export default function About() {
                    
                    {/* Text */}
                    <span className="text-slate-300 font-mono text-sm md:text-base group-hover:text-white transition-colors">
-                     <ScrambleText text={cert} delay={500 + (idx * 100)} />
+                     <ScrambleText text={cert.title} delay={500 + (idx * 100)} />
                    </span>
+
+                   {/* Click indicator icon */}
+                   <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity text-blue-400">
+                     <Icons.Eye size={18} />
+                   </div>
                 </motion.div>
               ))}
            </div>
         </div>
 
       </div>
+
+      {/* Certificate Modal */}
+      <AnimatePresence>
+        {selectedCertificate && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
+            onClick={() => setSelectedCertificate(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: 50 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative max-w-5xl w-full bg-[#0a0f1c] rounded-2xl overflow-hidden border-2 border-blue-500/30 shadow-2xl shadow-blue-500/20"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="bg-gradient-to-r from-blue-950/50 to-purple-950/50 p-6 border-b border-blue-500/20">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1">
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
+                      {selectedCertificate.title}
+                    </h3>
+                    <p className="text-sm text-slate-400">Click outside or press ESC to close</p>
+                  </div>
+                  <button
+                    onClick={() => setSelectedCertificate(null)}
+                    className="p-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 transition-colors flex-shrink-0"
+                    aria-label="Close modal"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Certificate Image */}
+              <div className="relative w-full aspect-[16/11] bg-slate-900">
+                <Image
+                  src={selectedCertificate.image}
+                  alt={selectedCertificate.title}
+                  fill
+                  className="object-contain"
+                  priority
+                />
+                
+                {/* Decorative corners */}
+                <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-blue-400/50" />
+                <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-blue-400/50" />
+                <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-blue-400/50" />
+                <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-blue-400/50" />
+              </div>
+
+              {/* Footer with download button */}
+              <div className="p-4 bg-gradient-to-r from-slate-950/50 to-slate-900/50 border-t border-blue-500/20">
+                <div className="flex items-center justify-between">
+                  <p className="text-xs text-slate-500">
+                    Certificate image
+                  </p>
+                  <a
+                    href={selectedCertificate.image}
+                    download
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg font-medium transition-colors flex items-center gap-2"
+                  >
+                    <Icons.Download size={16} />
+                    Download
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       
       <style jsx>{`
         @keyframes scan {
