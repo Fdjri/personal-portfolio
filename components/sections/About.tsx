@@ -112,14 +112,21 @@ export default function About() {
             </div>
 
             <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-4">
-              <button className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold transition-all flex items-center gap-2 shadow-[0_4px_20px_rgba(37,99,235,0.3)] active:scale-95">
+              <a 
+                href="/cv/CV_Sholihul Fadjri Triwibowo.pdf" 
+                download="CV_Sholihul_Fadjri_Triwibowo.pdf"
+                className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold transition-all flex items-center gap-2 shadow-[0_4px_20px_rgba(37,99,235,0.3)] active:scale-95 hover:shadow-[0_6px_30px_rgba(37,99,235,0.5)] hover:scale-105"
+              >
                 <Icons.Download size={18} />
                 <ScrambleText text="Download CV" delay={800} />
-              </button>
-              <button className="px-6 py-3 bg-transparent border border-white/20 hover:bg-white/5 text-white rounded-lg font-semibold transition-all flex items-center gap-2 active:scale-95">
+              </a>
+              <a
+                href="/#projects"
+                className="px-6 py-3 bg-transparent border border-white/20 hover:bg-white/5 text-white rounded-lg font-semibold transition-all flex items-center gap-2 active:scale-95 hover:border-white/40"
+              >
                 <Icons.Eye size={18} />
                 <ScrambleText text="View Projects" delay={1000} />
-              </button>
+              </a>
             </div>
           </motion.div>
         </div>
