@@ -58,20 +58,34 @@ const InteractiveChar = ({ char, delay }: { char: string, delay: number }) => {
     <span 
       ref={ref}
       onMouseEnter={handleMouseEnter}
-      className="inline-block transition-all duration-75 cursor-default hover:text-cyan-400 hover:scale-110 hover:font-bold" 
-      style={{ whiteSpace: 'pre' }} 
+      className={`transition-all duration-75 cursor-default hover:text-cyan-400 hover:scale-110 hover:font-bold ${char === ' ' ? 'inline' : 'inline-block'}`}
+      style={{ whiteSpace: char === ' ' ? 'normal' : 'pre' }} 
     >
       {displayText}
     </span>
   );
 }
 
-// Wrapper Component (Tetep sama)
+// Wrapper Component with word-based wrapping
 export const ScrambleText = ({ text, className = "", delay = 0 }: { text: string, className?: string, delay?: number }) => {
+  // Split by words to allow natural wrapping
+  const words = text.split(' ');
+  
   return (
-    <span className={className}>
-      {text.split('').map((char, i) => (
-        <InteractiveChar key={i} char={char} delay={delay + (i * 30)} /> 
+    <span className={className} style={{ display: 'inline' }}>
+      {words.map((word, wordIndex) => (
+        <React.Fragment key={wordIndex}>
+          <span style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+            {word.split('').map((char, charIndex) => (
+              <InteractiveChar 
+                key={`${wordIndex}-${charIndex}`} 
+                char={char} 
+                delay={delay + ((wordIndex * word.length + charIndex) * 30)} 
+              />
+            ))}
+          </span>
+          {wordIndex < words.length - 1 && <span style={{ display: 'inline' }}> </span>}
+        </React.Fragment>
       ))}
     </span>
   );

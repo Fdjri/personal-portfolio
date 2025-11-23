@@ -1,20 +1,37 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   --background: #020205;
   --foreground: #ededed;
 }
 
-/* Tambahin Keyframes Shimmer di sini */
 @keyframes shimmer {
   100% {
     transform: translateX(100%);
   }
 }
 
-/* Tambahin CSS 3D dan Animasi Wave */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* CSS 3D and Animations */
 .perspective-1000 {
   perspective: 1000px;
 }
@@ -24,6 +41,37 @@
 .backface-hidden {
   backface-visibility: hidden;
 }
+
+/* 3D Keyboard Effects */
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-8px); 
+  }
+}
+
+@keyframes floatRotate {
+  0%, 100% { 
+    transform: translateY(0px) rotateX(25deg) rotateY(5deg); 
+  }
+  50% { 
+    transform: translateY(-15px) rotateX(23deg) rotateY(6deg); 
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% { 
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.8;
+    transform: scale(1.5);
+  }
+}
+
 @keyframes wave {
   0% { transform: rotate(0.0deg) }
   10% { transform: rotate(14.0deg) }
@@ -34,6 +82,7 @@
   60% { transform: rotate(0.0deg) }
   100% { transform: rotate(0.0deg) }
 }
+
 .animate-wave {
   animation-name: wave;
   animation-duration: 2.5s;
@@ -42,7 +91,41 @@
   display: inline-block;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
+.keyboard-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Custom Scrollbar Styling */
+/* For Webkit browsers (Chrome, Safari, Edge) */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.4);
+  border-radius: 10px;
+  margin: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.6), rgba(59, 130, 246, 0.6));
+  border-radius: 10px;
+  border: 2px solid rgba(15, 23, 42, 0.4);
+  transition: all 0.3s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.9), rgba(59, 130, 246, 0.9));
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(180deg, rgb(56, 189, 248), rgb(59, 130, 246));
+}
+
+/* For Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(56, 189, 248, 0.6) rgba(15, 23, 42, 0.4);
 }

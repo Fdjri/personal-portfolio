@@ -3,11 +3,13 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Icons } from "../ui/Icons";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [activeTab, setActiveTab] = useState("");
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,9 +45,22 @@ export default function Header() {
         >
           <Link 
             href="/" 
-            className={`${glassStyle} px-6 py-3 rounded-full flex items-center gap-2 group active:scale-95`}
+            className={`${glassStyle} px-6 py-3 rounded-full flex items-center gap-2 group active:scale-95 relative ${
+              pathname === "/" ? "border-cyan-500/30" : ""
+            }`}
           >
-            <span className="text-slate-400 font-bold text-base group-hover:text-cyan-400 transition-colors">
+            {pathname === "/" && (
+              <motion.span
+                layoutId="activePageLogo"
+                className="absolute inset-0 z-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full"
+                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+              />
+            )}
+            <span className={`font-bold text-base transition-colors relative z-10 ${
+              pathname === "/" 
+                ? "text-cyan-400" 
+                : "text-slate-400 group-hover:text-cyan-400"
+            }`}>
               &lt; / Fadjri &gt;
             </span>
           </Link>
@@ -58,24 +73,43 @@ export default function Header() {
           transition={{ delay: 1 }}
           className={`${glassStyle} hidden md:flex items-center gap-1 px-2 py-2 rounded-full`}
         >
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              onMouseEnter={() => setActiveTab(link.name)}
-              onMouseLeave={() => setActiveTab("")}
-              className="relative px-6 py-2 text-sm font-medium text-slate-400 hover:text-white transition-colors rounded-full"
-            >
-              {activeTab === link.name && (
-                <motion.span
-                  layoutId="bubble"
-                  className="absolute inset-0 z-0 bg-white/10 rounded-full"
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                />
-              )}
-              <span className="relative z-10">{link.name}</span>
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                onMouseEnter={() => setActiveTab(link.name)}
+                onMouseLeave={() => setActiveTab("")}
+                className={`relative px-6 py-2 text-sm font-medium transition-colors rounded-full ${
+                  isActive 
+                    ? "text-cyan-400" 
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                {/* Active page background */}
+                {isActive && (
+                  <motion.span
+                    layoutId="activePage"
+                    className="absolute inset-0 z-0 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full border border-cyan-500/30"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                
+                {/* Hover background */}
+                {activeTab === link.name && !isActive && (
+                  <motion.span
+                    layoutId="bubble"
+                    className="absolute inset-0 z-0 bg-white/10 rounded-full"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                
+                <span className="relative z-10">{link.name}</span>
+              </Link>
+            );
+          })}
         </motion.nav>
 
         {/* 3. RIGHT: SOCIAL BUTTONS */}
@@ -86,7 +120,7 @@ export default function Header() {
           className="flex items-center gap-4"
         >
            <a
-            href="https://github.com/sholihul"
+            href="https://github.com/Fdjri"
             target="_blank"
             rel="noopener noreferrer"
             className={`${glassStyle} p-3 rounded-full text-slate-400 hover:text-white hover:bg-white/10 hover:scale-110 active:scale-95`}
@@ -94,7 +128,7 @@ export default function Header() {
             <Icons.Github size={20} />
           </a>
           <a
-            href="https://instagram.com" 
+            href="https://www.instagram.com/fdjritw/" 
             target="_blank"
             rel="noopener noreferrer"
             className={`${glassStyle} p-3 rounded-full text-slate-400 hover:text-white hover:bg-white/10 hover:scale-110 active:scale-95`}
