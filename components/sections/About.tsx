@@ -121,7 +121,7 @@ export default function About() {
                 <ScrambleText text="Download CV" delay={800} />
               </a>
               <a
-                href="/#projects"
+                href="/projects"
                 className="px-6 py-3 bg-transparent border border-white/20 hover:bg-white/5 text-white rounded-lg font-semibold transition-all flex items-center gap-2 active:scale-95 hover:border-white/40"
               >
                 <Icons.Eye size={18} />
