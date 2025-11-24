@@ -1,15 +1,17 @@
 "use client";
 
 import React, { useState, useEffect, memo, useMemo } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Icons } from "../ui/Icons";
+import { ScrambleText } from "../ui/Animations";
 
 const Header = memo(function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [activeTab, setActiveTab] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -35,7 +37,7 @@ const Header = memo(function Header() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, delay: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-50 pt-6 px-6 pointer-events-none"
+      className="fixed top-0 left-0 right-0 z-50 pt-4 px-4 sm:pt-6 sm:px-6 pointer-events-none"
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between pointer-events-auto">
 
@@ -47,7 +49,7 @@ const Header = memo(function Header() {
         >
           <Link
             href="/"
-            className={`${glassStyle} px-6 py-3 rounded-full flex items-center gap-2 group active:scale-95 relative ${
+            className={`${glassStyle} px-4 sm:px-6 py-2 sm:py-3 rounded-full flex items-center gap-2 group active:scale-95 relative ${
               pathname === "/" ? "border-cyan-500/30" : ""
             }`}
           >
@@ -58,11 +60,18 @@ const Header = memo(function Header() {
                 transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
               />
             )}
-            <span className={`font-bold text-base transition-colors relative z-10 ${
-              pathname === "/"
-                ? "text-cyan-400"
-                : "text-slate-400 group-hover:text-cyan-400"
-            }`}>
+            {/* PC: ScrambleText | Mobile: Plain Text */}
+            <span className="hidden sm:inline-block">
+              <ScrambleText
+                text="< / Fadjri >"
+                className={`font-bold text-base transition-colors relative z-10 ${
+                  pathname === "/"
+                    ? "text-cyan-400"
+                    : "text-slate-400 group-hover:text-cyan-400"
+                }`}
+              />
+            </span>
+            <span className="sm:hidden font-bold text-sm text-slate-400 group-hover:text-cyan-400 relative z-10">
               &lt; / Fadjri &gt;
             </span>
           </Link>
@@ -114,18 +123,19 @@ const Header = memo(function Header() {
           })}
         </motion.nav>
 
-        {/* 3. RIGHT: SOCIAL BUTTONS */}
+        {/* 3. RIGHT: SOCIAL BUTTONS (Desktop) + MOBILE MENU BUTTON */}
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.8 }}
-          className="flex items-center gap-4"
+          className="flex items-center gap-2 sm:gap-4"
         >
+          {/* Desktop Social Links */}
           <a
             href="https://github.com/Fdjri"
             target="_blank"
             rel="noopener noreferrer"
-            className={`${glassStyle} p-3 rounded-full text-slate-400 hover:text-white hover:bg-white/10 hover:scale-110 active:scale-95`}
+            className={`${glassStyle} hidden sm:block p-3 rounded-full text-slate-400 hover:text-white hover:bg-white/10 hover:scale-110 active:scale-95`}
           >
             <Icons.Github size={20} />
           </a>
@@ -133,13 +143,75 @@ const Header = memo(function Header() {
             href="https://www.instagram.com/fdjritw/"
             target="_blank"
             rel="noopener noreferrer"
-            className={`${glassStyle} p-3 rounded-full text-slate-400 hover:text-white hover:bg-white/10 hover:scale-110 active:scale-95`}
+            className={`${glassStyle} hidden sm:block p-3 rounded-full text-slate-400 hover:text-white hover:bg-white/10 hover:scale-110 active:scale-95`}
           >
             <Icons.Instagram size={20} />
           </a>
+
+          {/* Mobile Menu Button */}
+          <motion.button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className={`${glassStyle} md:hidden p-2.5 sm:p-3 rounded-full text-slate-400 hover:text-white active:scale-95`}
+          >
+            {mobileMenuOpen ? (
+              <Icons.X size={20} />
+            ) : (
+              <Icons.Menu size={20} />
+            )}
+          </motion.button>
         </motion.div>
 
       </div>
+
+      {/* MOBILE MENU */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className={`${glassStyle} md:hidden mt-4 px-4 py-4 rounded-2xl flex flex-col gap-2 pointer-events-auto`}
+          >
+            {navLinks.map((link: any) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                    isActive
+                      ? "text-cyan-400 bg-cyan-500/10 border border-cyan-500/30"
+                      : "text-slate-400 hover:text-white hover:bg-white/5"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
+            {/* Mobile Social Links */}
+            <div className="flex items-center justify-center gap-4 pt-3 mt-2 border-t border-white/10">
+              <a
+                href="https://github.com/Fdjri"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-400 hover:text-white transition-colors"
+              >
+                <Icons.Github size={20} />
+              </a>
+              <a
+                href="https://www.instagram.com/fdjritw/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-400 hover:text-pink-500 transition-colors"
+              >
+                <Icons.Instagram size={20} />
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 });

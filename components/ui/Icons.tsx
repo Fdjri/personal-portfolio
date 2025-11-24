@@ -17,7 +17,8 @@ import {
   LuCloud,
   LuChevronLeft,
   LuChevronRight,
-  LuX
+  LuX,
+  LuMenu
 } from "react-icons/lu";
 import { FaJava } from "react-icons/fa"; 
 import { VscVscode } from "react-icons/vsc"; 
@@ -71,6 +72,7 @@ export const Icons = {
   ChevronLeft: (props: any) => <LuChevronLeft {...props} />,
   ChevronRight: (props: any) => <LuChevronRight {...props} />,
   X: (props: any) => <LuX {...props} />,
+  Menu: (props: any) => <LuMenu {...props} />,
   
   Alpine: ({ size = 24, color = "currentColor", className = "" }) => (
     <svg 
