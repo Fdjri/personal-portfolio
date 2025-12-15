@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import CustomCursor from "@/components/CustomCursor";
 
 export const metadata: Metadata = {
   title: "Sholihul Fadjri Triwibowo",
@@ -19,11 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className="antialiased bg-[#020205] text-white"
+        className="antialiased bg-[#020205] text-white cursor-none"
         style={{
           fontFamily: '"Lucida Sans Typewriter", "Lucida Console", "Monaco", "Bitstream Vera Sans Mono", monospace'
         }}
       >
+        <CustomCursor />
         {children}
       </body>
     </html>

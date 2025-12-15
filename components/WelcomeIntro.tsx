@@ -9,55 +9,49 @@ interface WelcomeIntroProps {
 }
 
 const WelcomeIntro = memo(function WelcomeIntro({ isVisible, onComplete }: WelcomeIntroProps) {
-  const [shouldExit, setShouldExit] = useState(false);
+  const [showText, setShowText] = useState(true);
 
   useEffect(() => {
     if (isVisible) {
-      // Display welcome text for 2 seconds, then start fade away
-      const displayTimer = setTimeout(() => {
-        setShouldExit(true);
+      const textTimer = setTimeout(() => {
+        setShowText(false);
       }, 2000);
 
-      // After fade away (0.5s), call onComplete
-      const exitTimer = setTimeout(() => {
+      const completeTimer = setTimeout(() => {
         onComplete();
       }, 2500);
 
       return () => {
-        clearTimeout(displayTimer);
-        clearTimeout(exitTimer);
+        clearTimeout(textTimer);
+        clearTimeout(completeTimer);
       };
     }
   }, [isVisible, onComplete]);
 
   return (
     <AnimatePresence>
-      {isVisible && !shouldExit && (
+      {isVisible && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm will-change-[opacity]"
         >
-          <motion.h1
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.3 }}
-            className="text-5xl md:text-6xl font-bold text-cyan-400 text-center"
-          >
-            Welcome To My World
-          </motion.h1>
+          <AnimatePresence>
+            {showText && (
+              <motion.h1
+                initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 text-center will-change-[opacity,transform]"
+              >
+                Welcome To My World
+              </motion.h1>
+            )}
+          </AnimatePresence>
         </motion.div>
-      )}
-      {isVisible && shouldExit && (
-        <motion.div
-          initial={{ opacity: 1 }}
-          animate={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
-        />
       )}
     </AnimatePresence>
   );
