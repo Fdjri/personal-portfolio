@@ -12,7 +12,7 @@ const techKeys = Object.keys(techIcons) as Array<keyof typeof techIcons>;
 
 // State untuk melacak tombol mana yang sedang di-hover/diklik
 type ActiveTech = {
-  key: string; 
+  key: string;
   name: string;
   description: string;
   color: string;
@@ -41,7 +41,7 @@ const TechKey = React.memo(({ iconKey, index, setActiveTech, isActive, onTap }: 
     // Only work on desktop when no key is locked (not tapped)
     if (!('ontouchstart' in window) && !isActive) {
       setActiveTech({
-        key: iconKey as string, 
+        key: iconKey as string,
         name: iconData.name,
         description: iconData.description,
         color: baseColor,
@@ -64,12 +64,12 @@ const TechKey = React.memo(({ iconKey, index, setActiveTech, isActive, onTap }: 
 
   // Perhitungan visual 3D
   const [isPressed, setIsPressed] = useState(false);
-  
+
   // Gaya untuk BADAN/KEDALAMAN tombol 3D - Enhanced depth
   const depth = 12; // Kedalaman tombol dalam piksel
-  
+
   const keyDepthStyle: React.CSSProperties = {
-    backgroundColor: '#000000', 
+    backgroundColor: '#000000',
     boxShadow: `
       0 ${depth}px 0 -1px #0a0a0a,
       0 ${depth + 2}px 0 -2px #050505,
@@ -77,13 +77,13 @@ const TechKey = React.memo(({ iconKey, index, setActiveTech, isActive, onTap }: 
       0 0 10px ${baseColor}10,
       inset 0 -2px 4px rgba(0,0,0,0.8)
     `,
-    transform: isPressed 
-      ? `translateY(${depth - 2}px)` 
-      : `translateY(0px)`, 
+    transform: isPressed
+      ? `translateY(${depth - 2}px)`
+      : `translateY(0px)`,
     transition: 'transform 0.12s ease-out, box-shadow 0.12s ease-out',
-    border: `1px solid rgba(0,0,0,0.8)`, 
+    border: `1px solid rgba(0,0,0,0.8)`,
   };
-  
+
   // Gaya untuk PERMUKAAN ATAS tombol 3D - More realistic
   const keyTopStyle: React.CSSProperties = {
     background: `linear-gradient(145deg, 
@@ -109,9 +109,9 @@ const TechKey = React.memo(({ iconKey, index, setActiveTech, isActive, onTap }: 
         0 2px 6px ${baseColor}15,
         0 0 0 1px rgba(255,255,255,0.05)
       `,
-    transform: isPressed 
-      ? `translateY(${depth - 2}px)` 
-      : `translateY(0px)`, 
+    transform: isPressed
+      ? `translateY(${depth - 2}px)`
+      : `translateY(0px)`,
     transition: 'transform 0.12s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease-out',
     position: 'absolute',
     inset: 0,
@@ -132,20 +132,20 @@ const TechKey = React.memo(({ iconKey, index, setActiveTech, isActive, onTap }: 
       initial={{ opacity: 0, scale: 0.5 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: index * 0.04, duration: 0.6, type: "spring", stiffness: 160, damping: 14 }}
-      className="relative w-full aspect-square" 
+      className="relative w-full aspect-square"
     >
-      
+
       {/* 1. KEYCAP BODY (Badan 3D di belakang) */}
-      <motion.div 
+      <motion.div
         className="rounded-lg w-full h-full absolute inset-0 pointer-events-none"
-        style={{ 
+        style={{
           ...keyDepthStyle,
         }}
-        aria-hidden="true" 
+        aria-hidden="true"
       />
 
       {/* 2. KEYCAP TOP SURFACE (Permukaan atas) */}
-      <motion.div 
+      <motion.div
         className={`rounded-lg cursor-pointer group relative z-10 ${isActive ? 'ring-2 ring-offset-2 ring-offset-[#0a0e17]' : ''}`}
         style={{
           ...keyTopStyle,
@@ -169,13 +169,13 @@ const TechKey = React.memo(({ iconKey, index, setActiveTech, isActive, onTap }: 
         {/* Konten Ikon Only */}
         <div className="absolute inset-0 flex items-center justify-center p-3 z-10 pointer-events-none">
           <div className="relative w-9 h-9 md:w-11 md:h-11 flex items-center justify-center">
-            <IconComponent 
-              size="100%" 
-              color={baseColor} 
+            <IconComponent
+              size="100%"
+              color={baseColor}
               className={`w-full h-full transition-all duration-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] ${isActive ? 'scale-110' : 'group-hover:scale-110'}`}
               style={{
-                filter: isActive 
-                  ? `drop-shadow(0 0 12px ${baseColor}80)` 
+                filter: isActive
+                  ? `drop-shadow(0 0 12px ${baseColor}80)`
                   : `drop-shadow(0 0 8px ${baseColor}40)`,
               }}
             />
@@ -183,7 +183,7 @@ const TechKey = React.memo(({ iconKey, index, setActiveTech, isActive, onTap }: 
         </div>
 
         {/* Top highlight shine */}
-        <div 
+        <div
           className="absolute top-0 left-1/4 right-1/4 h-[30%] rounded-t-lg pointer-events-none z-0"
           style={{
             background: 'linear-gradient(to bottom, rgba(255,255,255,0.12), transparent)',
@@ -191,16 +191,16 @@ const TechKey = React.memo(({ iconKey, index, setActiveTech, isActive, onTap }: 
         />
 
         {/* Glow Effect on Hover */}
-        <div 
+        <div
           className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-0"
           style={glowStyle}
         />
-        
+
         {/* Border / Outline Glow on Hover */}
-        <div 
+        <div
           className="absolute inset-0 rounded-lg border-2 border-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-0"
-          style={{ 
-            borderColor: `${baseColor}70`, 
+          style={{
+            borderColor: `${baseColor}70`,
             boxShadow: `
               inset 0 0 20px ${baseColor}40,
               0 0 30px ${baseColor}50,
@@ -225,10 +225,10 @@ export default function TechStackPage() {
   const [tapCounts, setTapCounts] = useState<{ [key: string]: number }>({});
   const [showTaurus, setShowTaurus] = useState(false);
   const [tapTimers, setTapTimers] = useState<{ [key: string]: NodeJS.Timeout }>({});
-  
+
   // Memoize total tech count
   const totalTechCount = useMemo(() => techKeys.length, []);
-  
+
   // Ambil data untuk display awal jika tidak ada hover
   const defaultTech: ActiveTech = useMemo(() => ({
     key: "default",
@@ -256,26 +256,26 @@ export default function TechStackPage() {
     setTapCounts(prev => {
       const currentCount = (prev[key] || 0) + 1;
       const newCounts = { ...prev, [key]: currentCount };
-      
+
       // Clear existing timer for this key
       setTapTimers(prevTimers => {
         if (prevTimers[key]) {
           clearTimeout(prevTimers[key]);
         }
-        
+
         // Check if reached 4 taps
         if (currentCount === 4) {
           // Trigger Taurus constellation animation
           setShowTaurus(true);
-          
+
           // Hide after 5 seconds
           setTimeout(() => {
             setShowTaurus(false);
           }, 5000);
-          
+
           // Reset tap count for this key
           newCounts[key] = 0;
-          
+
           // Remove timer for this key
           const newTimers = { ...prevTimers };
           delete newTimers[key];
@@ -294,11 +294,11 @@ export default function TechStackPage() {
               return updatedTimers;
             });
           }, 5000);
-          
+
           return { ...prevTimers, [key]: newTimer };
         }
       });
-      
+
       return newCounts;
     });
   }, []);
@@ -373,7 +373,7 @@ export default function TechStackPage() {
           >
             {/* Constellation Container */}
             <div className="relative w-[600px] h-[600px] max-w-[90vw] max-h-[90vh]">
-              
+
               {/* Glow effect behind constellation */}
               <motion.div
                 className="absolute inset-0"
@@ -468,7 +468,7 @@ export default function TechStackPage() {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ delay: 1.5, duration: 0.5 }}
               >
-                <h2 className="text-4xl md:text-6xl font-black text-center" 
+                <h2 className="text-4xl md:text-6xl font-black text-center"
                   style={{
                     color: '#FF6B35',
                     textShadow: `
@@ -517,10 +517,10 @@ export default function TechStackPage() {
 
       <main className="relative z-20 pt-32 pb-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto w-full">
-          
+
           {/* HEADER SECTION */}
           <div className="text-center space-y-4 mb-20 px-4">
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -528,30 +528,30 @@ export default function TechStackPage() {
             >
               <ScrambleText text="Tech Stack" delay={200} />
             </motion.h1>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               className="text-slate-400 max-w-3xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed break-words px-4"
             >
-              <ScrambleText 
-                text="A Collection of the languages, frameworks, and tools I use to build my projects." 
-                delay={500} 
+              <ScrambleText
+                text="A Collection of the languages, frameworks, and tools I use to build my projects."
+                delay={500}
               />
             </motion.p>
           </div>
-          
+
           {/* MAIN CONTENT SECTION - Two Column Layout */}
-          <motion.section 
+          <motion.section
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
             className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.3fr] gap-8 lg:gap-10 xl:gap-12 items-start lg:items-center min-h-[600px]"
           >
-            
+
             {/* LEFT SIDE - 3D Keyboard */}
             <div className="order-1 lg:order-1 flex justify-center lg:justify-start pt-8 pb-16">
-              <div 
+              <div
                 className="relative"
                 style={{
                   perspective: '1500px',
@@ -578,34 +578,34 @@ export default function TechStackPage() {
                 />
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ 
-                    opacity: 1, 
+                  animate={{
+                    opacity: 1,
                     scale: 1,
                     y: [0, -15, 0],
                     rotateX: [25, 23, 25],
                     rotateY: [5, 6, 5],
                   }}
-                  transition={{ 
+                  transition={{
                     opacity: { delay: 1, duration: 1 },
                     scale: { delay: 1, duration: 1, type: "spring", stiffness: 100 },
-                    y: { 
+                    y: {
                       delay: 2,
-                      duration: 6, 
-                      repeat: Infinity, 
+                      duration: 6,
+                      repeat: Infinity,
                       ease: "easeInOut",
                       repeatType: "reverse"
                     },
-                    rotateX: { 
+                    rotateX: {
                       delay: 2,
-                      duration: 6, 
-                      repeat: Infinity, 
+                      duration: 6,
+                      repeat: Infinity,
                       ease: "easeInOut",
                       repeatType: "reverse"
                     },
-                    rotateY: { 
+                    rotateY: {
                       delay: 2,
-                      duration: 6, 
-                      repeat: Infinity, 
+                      duration: 6,
+                      repeat: Infinity,
                       ease: "easeInOut",
                       repeatType: "reverse"
                     },
@@ -622,7 +622,7 @@ export default function TechStackPage() {
                     "
                     style={{
                       display: 'grid',
-                      gridTemplateColumns: 'repeat(5, 1fr)', 
+                      gridTemplateColumns: 'repeat(5, 1fr)',
                       gridTemplateRows: 'repeat(4, 1fr)',
                       gap: '10px',
                       transformStyle: 'flat',
@@ -637,7 +637,7 @@ export default function TechStackPage() {
                     }}
                   >
                     {techKeys.slice(0, 20).map((key, index) => (
-                      <TechKey 
+                      <TechKey
                         key={key}
                         iconKey={key}
                         index={index}
@@ -649,7 +649,7 @@ export default function TechStackPage() {
                   </div>
 
                   {/* Animated shadow underneath */}
-                  <motion.div 
+                  <motion.div
                     className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[120%] h-32 -z-10 pointer-events-none"
                     animate={{
                       scaleX: [1, 1.1, 1],
@@ -666,9 +666,9 @@ export default function TechStackPage() {
                       filter: 'blur(40px)',
                     }}
                   />
-                  
+
                   {/* Animated ambient light reflection */}
-                  <motion.div 
+                  <motion.div
                     className="absolute inset-0 -z-10 pointer-events-none"
                     animate={{
                       opacity: [0.3, 0.5, 0.3],
@@ -685,7 +685,7 @@ export default function TechStackPage() {
                       filter: 'blur(20px)',
                     }}
                   />
-                  
+
                   {/* Floating particles effect */}
                   <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
                     {[
@@ -724,11 +724,11 @@ export default function TechStackPage() {
                 </motion.div>
               </div>
             </div>
-            
+
             {/* RIGHT SIDE - Text Content */}
             <div className="space-y-6 order-2 lg:order-2 px-4 lg:px-0 w-full">
               <div key={activeTech?.key || 'default'} className="w-full pr-0 lg:pr-4">
-                <h2 
+                <h2
                   className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight mb-6 leading-tight"
                   style={{
                     color: activeTech?.color || defaultTech.color,
@@ -740,13 +740,13 @@ export default function TechStackPage() {
                     filter: `drop-shadow(0 0 20px ${activeTech?.color || defaultTech.color}30)`,
                   }}
                 >
-                  <ScrambleText 
-                    text={activeTech ? activeTech.name : defaultTech.name} 
+                  <ScrambleText
+                    text={activeTech ? activeTech.name : defaultTech.name}
                     delay={0}
                   />
                 </h2>
                 <p className="text-slate-300 text-sm sm:text-base md:text-lg leading-relaxed">
-                  <ScrambleText 
+                  <ScrambleText
                     text={activeTech ? activeTech.description : defaultTech.description}
                     delay={100}
                   />
@@ -760,10 +760,10 @@ export default function TechStackPage() {
                 transition={{ delay: 1.5, duration: 0.6 }}
                 className="pt-4 hidden lg:block space-y-2"
               >
-                <p className="text-slate-600 text-xs italic">
+                {/* <p className="text-slate-600 text-xs italic">
                   <span className="inline-block mr-2">🌟</span>
                   Psst... Try clicking the same key 4 times to unlock a celestial secret
-                </p>
+                </p> */}
               </motion.div>
 
               {/* Easter Egg Hint - Mobile */}
@@ -783,12 +783,12 @@ export default function TechStackPage() {
                 </p>
               </motion.div>
             </div>
-            
+
           </motion.section>
 
         </div>
       </main>
-      
+
       <Footer />
     </div>
   );

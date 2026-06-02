@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import CustomCursor from "@/components/CustomCursor";
+import RibbonsWrapper from "@/components/RibbonsWrapper";
 
 export const metadata: Metadata = {
   title: "Sholihul Fadjri Triwibowo",
@@ -25,7 +25,11 @@ export default function RootLayout({
           fontFamily: '"Lucida Sans Typewriter", "Lucida Console", "Monaco", "Bitstream Vera Sans Mono", monospace'
         }}
       >
-        <CustomCursor />
+        <RibbonsWrapper 
+          colors={['#06b6d4', '#2563eb', '#ffffff']} 
+          baseThickness={20}
+          speedMultiplier={0.5}
+        />
         {children}
       </body>
     </html>

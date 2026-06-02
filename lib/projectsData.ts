@@ -1,14 +1,14 @@
 export type Project = {
-  id: string; 
+  id: string;
   category: "web" | "mobile" | "uiux";
   title: string;
-  subtitle: string; 
+  subtitle: string;
   description: string;
-  overview: string; 
-  keyFeatures: string[]; 
+  overview: string;
+  keyFeatures: string[];
   techStack: string[];
-  image: string; 
-  screenshots: string[]; 
+  image: string;
+  screenshots: string[];
   links: {
     demo?: string;
     code?: string;
@@ -142,10 +142,10 @@ export const allProjects: Project[] = [
       "Contact Form Integration"
     ],
     techStack: ["Next.js", "React", "JavaScript", "TypeScript", "Tailwind"],
-    image: "/images/projects/sepatuku/mockup.jpg",
+    image: "/images/projects/portfolio/mockup.jpg",
     screenshots: [
-      "/images/projects/sepatuku/landing.jpg",
-      "/images/projects/sepatuku/dashboard.jpg"
+      "/images/projects/portfolio/home.jpg",
+      "/images/projects/portfolio/about.jpg"
     ],
     links: { demo: "#", code: "https://github.com/Fdjri/personal-portfolio" }
   },

@@ -2,13 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import RocketIntro from '@/components/RocketIntro';
 import WelcomeIntro from '@/components/WelcomeIntro';
 import MainLanding from '@/components/MainLanding';
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
-  const [introState, setIntroState] = useState<'rocket' | 'welcome' | 'main'>('rocket');
+  const [introState, setIntroState] = useState<'welcome' | 'main'>('welcome');
 
   useEffect(() => {
     setMounted(true);
@@ -22,10 +21,6 @@ export default function Home() {
     }
   }, []);
 
-  const handleRocketComplete = () => {
-    setIntroState('welcome');
-  };
-
   const handleWelcomeComplete = () => {
     sessionStorage.setItem('hasSeenIntro', 'true');
     setIntroState('main');
@@ -36,9 +31,6 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#020205] text-white selection:bg-cyan-500/30 overflow-x-hidden relative">
       <AnimatePresence mode="wait">
-        {introState === 'rocket' && (
-          <RocketIntro key="rocket" onRocketComplete={handleRocketComplete} />
-        )}
 
         {introState === 'welcome' && (
           <WelcomeIntro
