@@ -19,7 +19,7 @@ const TabItem = memo(function TabItem({
     <button
       onClick={onClick}
       className={`
-        relative px-6 py-2 rounded-full text-sm font-medium transition-all duration-300
+        relative px-3 sm:px-6 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300
         ${isActive ? "text-white" : "text-slate-400 hover:text-white"}
       `}
     >
@@ -65,8 +65,8 @@ const ProjectCard = memo(function ProjectCard({
       </div>
 
       {/* CONTENT SIDE */}
-      <div className="w-full md:w-2/5 space-y-6">
-        <h3 className="text-3xl font-bold text-white flex items-center gap-3">
+      <div className="w-full md:w-2/5 space-y-4 sm:space-y-6">
+        <h3 className="text-2xl sm:text-3xl font-bold text-white flex items-center gap-3">
           <ScrambleText text={project.title} delay={100} />
           <div className="h-[2px] flex-grow bg-gradient-to-r from-blue-500/50 to-transparent rounded-full" />
         </h3>
@@ -98,17 +98,17 @@ const ProjectCard = memo(function ProjectCard({
         </div>
 
         {/* ACTIONS */}
-        <div className="flex flex-wrap gap-3 pt-2">
-          <Link href={`/projects/${project.id}`}>
-            <button className="px-6 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition-all flex items-center gap-2 shadow-lg shadow-blue-900/20 active:scale-95 group">
+        <div className="flex flex-wrap gap-2 sm:gap-3 pt-2 w-full">
+          <Link href={`/projects/${project.id}`} className="w-full sm:w-auto">
+            <button className="w-full sm:w-auto justify-center px-4 sm:px-6 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition-all flex items-center gap-2 shadow-lg shadow-blue-900/20 active:scale-95 group">
               <Icons.Eye size={18} className="group-hover:scale-110 transition-transform" />
               <ScrambleText text="Detail" />
             </button>
           </Link>
 
           {project.links.prototype && (
-            <a href={project.links.prototype} target="_blank" rel="noreferrer">
-              <button className="px-6 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-medium transition-all flex items-center gap-2 shadow-lg shadow-purple-900/20 active:scale-95 group">
+            <a href={project.links.prototype} target="_blank" rel="noreferrer" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto justify-center px-4 sm:px-6 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-medium transition-all flex items-center gap-2 shadow-lg shadow-purple-900/20 active:scale-95 group">
                 <Icons.Layers size={18} className="group-hover:scale-110 transition-transform" />
                 <ScrambleText text="Prototype" />
               </button>
@@ -116,8 +116,8 @@ const ProjectCard = memo(function ProjectCard({
           )}
 
           {project.links.code && (
-            <a href={project.links.code} target="_blank" rel="noreferrer">
-              <button className="px-6 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-medium transition-all flex items-center gap-2 active:scale-95 group">
+            <a href={project.links.code} target="_blank" rel="noreferrer" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto justify-center px-4 sm:px-6 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-medium transition-all flex items-center gap-2 active:scale-95 group">
                 <Icons.Code size={18} className="group-hover:scale-110 transition-transform" />
                 <ScrambleText text="Source Code" />
               </button>
@@ -148,8 +148,8 @@ const Projects = memo(function Projects() {
       <div className="max-w-7xl mx-auto relative">
 
         {/* HEADER SECTION */}
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tight">
+        <div className="text-center mb-10 sm:mb-16 space-y-4">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white tracking-tight">
             <ScrambleText text="Portfolio Showcase" delay={200} />
           </h2>
           <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base">
@@ -158,8 +158,8 @@ const Projects = memo(function Projects() {
         </div>
 
         {/* TABS NAVIGATION */}
-        <div className="flex justify-center mb-16">
-          <div className="flex items-center p-1 bg-white/5 border border-white/10 rounded-full backdrop-blur-md">
+        <div className="flex justify-center mb-10 sm:mb-16">
+          <div className="flex flex-wrap justify-center items-center p-1 bg-white/5 border border-white/10 rounded-2xl sm:rounded-full backdrop-blur-md gap-1 sm:gap-0">
             {tabs.map((tab) => (
               <TabItem
                 key={tab.id}

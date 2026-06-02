@@ -777,10 +777,10 @@ export default function TechStackPage() {
                   <span className="inline-block mr-2">👆</span>
                   Tap a key to see details about each technology
                 </p>
-                <p className="text-slate-600 text-xs italic">
+                {/* <p className="text-slate-600 text-xs italic">
                   <span className="inline-block mr-2">🌟</span>
                   Secret: Tap any key 4 times to summon the stars
-                </p>
+                </p> */}
               </motion.div>
             </div>
 

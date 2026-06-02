@@ -74,7 +74,7 @@ export default function About() {
           >
             <div className="absolute inset-0 bg-red-600/20 rounded-full blur-3xl transform scale-110 animate-pulse group-hover:bg-red-600/50 transition-colors duration-500" />
             
-            <div className="relative w-64 h-64 md:w-full md:h-auto aspect-square rounded-full overflow-hidden border-2 border-red-500/30 shadow-[0_0_50px_rgba(220,20,60,0.3)] group cursor-pointer transition-all duration-500 hover:scale-105 hover:border-red-500/60">
+            <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-full md:h-auto aspect-square rounded-full overflow-hidden border-2 border-red-500/30 shadow-[0_0_50px_rgba(220,20,60,0.3)] group cursor-pointer transition-all duration-500 hover:scale-105 hover:border-red-500/60">
                <img 
                  src="/images/me.jpg"  
                  alt="Profile"
@@ -97,7 +97,7 @@ export default function About() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="md:col-span-8 space-y-6 text-center md:text-left"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white flex items-center justify-center md:justify-start gap-3">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white flex items-center justify-center md:justify-start gap-2 sm:gap-3">
               <ScrambleText text="Hello Folks!" delay={200} /> 
               <span className="animate-wave origin-[70%_70%] inline-block">👋</span>
             </h2>
@@ -111,18 +111,18 @@ export default function About() {
               </p>
             </div>
 
-            <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-4">
+            <div className="flex flex-wrap justify-center md:justify-start gap-3 sm:gap-4 pt-4 w-full px-4 sm:px-0">
               <a 
                 href="/cv/CV_Sholihul Fadjri Triwibowo.pdf" 
                 download="CV_Sholihul_Fadjri_Triwibowo.pdf"
-                className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold transition-all flex items-center gap-2 shadow-[0_4px_20px_rgba(37,99,235,0.3)] active:scale-95 hover:shadow-[0_6px_30px_rgba(37,99,235,0.5)] hover:scale-105"
+                className="w-full sm:w-auto justify-center px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold transition-all flex items-center gap-2 shadow-[0_4px_20px_rgba(37,99,235,0.3)] active:scale-95 hover:shadow-[0_6px_30px_rgba(37,99,235,0.5)] hover:scale-105"
               >
                 <Icons.Download size={18} />
                 <ScrambleText text="Download CV" delay={800} />
               </a>
               <a
                 href="/projects"
-                className="px-6 py-3 bg-transparent border border-white/20 hover:bg-white/5 text-white rounded-lg font-semibold transition-all flex items-center gap-2 active:scale-95 hover:border-white/40"
+                className="w-full sm:w-auto justify-center px-6 py-3 bg-transparent border border-white/20 hover:bg-white/5 text-white rounded-lg font-semibold transition-all flex items-center gap-2 active:scale-95 hover:border-white/40"
               >
                 <Icons.Eye size={18} />
                 <ScrambleText text="View Projects" delay={1000} />
@@ -150,7 +150,7 @@ export default function About() {
              <div className="absolute top-4 right-4 text-blue-500/10 group-hover:text-blue-500/20 transition-colors transform scale-150">
                 <Icons.Rocket size={60} />
              </div>
-             <h3 className="text-5xl font-bold text-white mb-2 relative z-10">
+             <h3 className="text-4xl sm:text-5xl font-bold text-white mb-2 relative z-10">
                 <ScrambleText text="15+" delay={600} />
              </h3>
              <p className="text-blue-200/60 font-medium text-sm tracking-wider uppercase relative z-10">
@@ -175,7 +175,7 @@ export default function About() {
              <div className="absolute top-4 right-4 text-blue-500/10 group-hover:text-blue-500/20 transition-colors transform scale-150">
                 <Icons.Award size={60} />
              </div>
-             <h3 className="text-5xl font-bold text-white mb-2 relative z-10">
+             <h3 className="text-4xl sm:text-5xl font-bold text-white mb-2 relative z-10">
                 <ScrambleText text="5" delay={700} />
              </h3>
              <p className="text-blue-200/60 font-medium text-sm tracking-wider uppercase relative z-10">

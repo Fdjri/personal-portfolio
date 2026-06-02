@@ -45,7 +45,7 @@ const WelcomeIntro = memo(function WelcomeIntro({ isVisible, onComplete }: Welco
                 animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                 exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                className="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 text-center will-change-[opacity,transform]"
+                className="text-3xl sm:text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 text-center will-change-[opacity,transform] px-4"
               >
                 Welcome To My World
               </motion.h1>

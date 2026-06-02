@@ -88,7 +88,7 @@ const OrbitSystem = memo(function OrbitSystem() {
         width="100%"
         height="100%"
         viewBox="0 0 1200 1000"
-        className="absolute w-full h-full"
+        className="absolute w-full h-full scale-[2] sm:scale-150 md:scale-100 transition-transform duration-700"
         style={{ overflow: 'visible' }}
         preserveAspectRatio="xMidYMid slice"
       >
