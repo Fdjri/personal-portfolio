@@ -5,62 +5,71 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 export default function CustomCursor() {
     const [isHovering, setIsHovering] = useState(false);
-
+    const [stickyElement, setStickyElement] = useState<HTMLElement | null>(null);
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
-
-    // Smooth spring physics for position
-    const springConfig = { damping: 30, stiffness: 200, mass: 0.8 };
+    const springConfig = { damping: 30, stiffness: 200, mass: 0.6 };
     const cursorX = useSpring(mouseX, springConfig);
     const cursorY = useSpring(mouseY, springConfig);
-
-    // Rotation physics
     const angle = useMotionValue(0);
-    const smoothAngle = useSpring(angle, { damping: 20, stiffness: 100 });
+    const smoothAngle = useSpring(angle, { damping: 20, stiffness: 80 });
+    const velocity = useMotionValue(0);
+    const smoothVelocity = useSpring(velocity, { damping: 20, stiffness: 100 });
+    const tailScaleX = useTransform(smoothVelocity, [0, 50], [1, 1.25]);
+    const tailScaleY = useTransform(smoothVelocity, [0, 50], [1, 0.85]);
 
     useEffect(() => {
         let lastX = 0;
         let lastY = 0;
         let timeoutId: number;
 
-        const updateAngle = () => {
+        const updateLoop = () => {
             const cx = cursorX.get();
             const cy = cursorY.get();
+
             const dx = cx - lastX;
             const dy = cy - lastY;
 
-            // Only update angle if moving significantly to avoid jitter
-            if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
+            const currentSpeed = Math.sqrt(dx * dx + dy * dy) * 10;
+            velocity.set(currentSpeed);
+
+            if (!stickyElement && currentSpeed > 0.5) {
                 const newAngle = Math.atan2(dy, dx) * (180 / Math.PI);
                 angle.set(newAngle);
             }
 
             lastX = cx;
             lastY = cy;
-            timeoutId = requestAnimationFrame(updateAngle);
+            timeoutId = requestAnimationFrame(updateLoop);
         };
 
-        timeoutId = requestAnimationFrame(updateAngle);
+        timeoutId = requestAnimationFrame(updateLoop);
         return () => cancelAnimationFrame(timeoutId);
-    }, [cursorX, cursorY, angle]);
+    }, [cursorX, cursorY, angle, velocity, stickyElement]);
 
     useEffect(() => {
         const moveCursor = (e: MouseEvent) => {
-            mouseX.set(e.clientX);
-            mouseY.set(e.clientY);
+            if (stickyElement) {
+                const { left, top, width, height } = stickyElement.getBoundingClientRect();
+                const centerX = left + width / 2;
+                const centerY = top + height / 2;
+                mouseX.set(centerX);
+                mouseY.set(centerY);
+            } else {
+                mouseX.set(e.clientX);
+                mouseY.set(e.clientY);
+            }
         };
 
         const handleMouseOver = (e: MouseEvent) => {
             const target = e.target as HTMLElement;
-            if (
-                target.tagName === 'A' ||
-                target.tagName === 'BUTTON' ||
-                target.closest('a') ||
-                target.closest('button') ||
-                target.classList.contains('cursor-pointer')
-            ) {
+            const clickable = target.closest('a, button, input, textarea, .cursor-pointer');
+
+            if (clickable) {
+                setStickyElement(clickable as HTMLElement);
                 setIsHovering(true);
             } else {
+                setStickyElement(null);
                 setIsHovering(false);
             }
         };
@@ -72,7 +81,7 @@ export default function CustomCursor() {
             window.removeEventListener('mousemove', moveCursor);
             window.removeEventListener('mouseover', handleMouseOver);
         };
-    }, [mouseX, mouseY]);
+    }, [mouseX, mouseY, stickyElement]);
 
     return (
         <motion.div
@@ -82,48 +91,44 @@ export default function CustomCursor() {
                 y: cursorY,
                 translateX: "-50%",
                 translateY: "-50%",
-                rotate: smoothAngle, // Rotate the entire container
+                rotate: smoothAngle,
             }}
         >
-            {/* Comet HEAD (Bright Cyan/White) */}
-            <div className={`relative transition-transform duration-300 ${isHovering ? "scale-50" : "scale-100"}`}>
-                <div className="w-4 h-4 rounded-full bg-cyan-100 shadow-[0_0_20px_rgba(34,211,238,1),0_0_40px_rgba(255,255,255,0.8)] relative z-20" />
+            <div className={`relative transition-all duration-300 ${isHovering ? "scale-50" : "scale-100"}`}>
 
-                {/* Comet TAIL (Orange/Blue Gradient) 
-            Tail should point OPPOSITE to movement (angle). 
-            Since we rotate the container by 'angle', 'right' is forward (0 deg).
-            So tail goes to the 'left' (180 deg).
-        */}
-                <div
-                    className="absolute right-[50%] top-1/2 -translate-y-1/2 w-[180px] h-[30px] origin-right z-10"
-                    style={{
-                        transform: 'translateX(-10px)', // adjust overlap
-                        background: 'linear-gradient(to left, rgba(34,211,238,0.8) 0%, rgba(251, 146, 60, 0.6) 30%, rgba(251, 146, 60, 0) 100%)',
-                        filter: 'blur(4px)',
-                        clipPath: 'polygon(100% 0%, 100% 100%, 0% 50%)', // Triangle shape for tail
-                    }}
-                />
+                {/* Comet HEAD */}
+                <div className={`w-3 h-3 rounded-full bg-cyan-50 shadow-[0_0_15px_rgba(34,211,238,0.8),0_0_30px_rgba(255,255,255,0.6)] relative z-20 transition-all duration-300 ${isHovering ? "bg-white scale-[2.5]" : ""}`} />
 
-                {/* Inner Core Tail (Brighter) */}
-                <div
-                    className="absolute right-[50%] top-1/2 -translate-y-1/2 w-[120px] h-[10px] origin-right z-15"
+                {/* Comet TAIL Group */}
+                <motion.div
+                    className={`absolute right-[50%] top-1/2 -translate-y-1/2 origin-right z-10 ${isHovering ? "opacity-0" : "opacity-100"}`}
                     style={{
-                        transform: 'translateX(-8px)',
-                        background: 'linear-gradient(to left, rgba(255,255,255,0.9) 0%, rgba(34,211,238,0.5) 50%, rgba(34,211,238,0) 100%)',
-                        filter: 'blur(2px)',
-                        clipPath: 'polygon(100% 0%, 100% 100%, 0% 50%)',
+                        scaleX: tailScaleX,
+                        scaleY: tailScaleY,
                     }}
-                />
+                >
+                    {/* Layer 1: Main Trail */}
+                    <div
+                        className="absolute right-0 top-1/2 -translate-y-1/2 w-[100px] h-[20px] origin-right"
+                        style={{
+                            transform: 'translateX(-4px)',
+                            background: 'linear-gradient(to left, rgba(34,211,238,0.4) 0%, rgba(34,211,238,0.1) 50%, transparent 100%)',
+                            filter: 'blur(6px)',
+                            borderRadius: '100px',
+                        }}
+                    />
 
-                {/* Gaseous/Smoke Effect (Outer wide glow) */}
-                <div
-                    className="absolute right-[50%] top-1/2 -translate-y-1/2 w-[160px] h-[50px] origin-right z-0"
-                    style={{
-                        transform: 'translateX(-5px)',
-                        background: 'radial-gradient(ellipse at right, rgba(34,211,238,0.3) 0%, rgba(59, 130, 246, 0.1) 40%, transparent 80%)',
-                        filter: 'blur(8px)',
-                    }}
-                />
+                    {/* Layer 2: Inner Core  */}
+                    <div
+                        className="absolute right-0 top-1/2 -translate-y-1/2 w-[60px] h-[4px] origin-right"
+                        style={{
+                            transform: 'translateX(-2px)',
+                            background: 'linear-gradient(to left, rgba(255,255,255,0.6) 0%, rgba(34,211,238,0.3) 70%, transparent 100%)',
+                            filter: 'blur(2px)',
+                            borderRadius: '100px',
+                        }}
+                    />
+                </motion.div>
             </div>
         </motion.div>
     );
